@@ -24,14 +24,18 @@ var tweetData = {
 
 
 
-let name = tweetData.user.name
-let avatar = tweetData.user.avatars.small
-let handle = tweetData.user.handle
-let tweetContent = tweetData.content.text
-let converted = tweetData.created_at / 1000
-let days = ((Date.now() - tweetData.created_at) / 1000) / 86000;
 
-var $newTweets = $(`<article class='tweet-history'>
+
+function createTweetElement(object) {
+
+let name = object.user.name
+let avatar = object.user.avatars.small
+let handle = object.user.handle
+let tweetContent = object.content.text
+let converted = object.created_at / 1000
+let days = ((Date.now() - object.created_at) / 1000) / 86000;
+
+var $newTweets =  $(`<article class='tweet-history'>
                        <header class="tweet-history">
                          <image class="tweet-history" src=${avatar}>
                          <h3 class="tweeter-name">${name}</h3>
@@ -45,15 +49,18 @@ var $newTweets = $(`<article class='tweet-history'>
                           <i class="material-icons">favorite</i>
                       </footer>
                     </article>`)
+return $newTweets;
+}
 
+var $tweet = createTweetElement(tweetData);
  $(function() {
 
- $('.tweet-holder').prepend($newTweets)
+ $('.tweet-holder ').prepend($tweet)
 
 });
 
 
 // Test / driver code (temporary)
-console.log($newTweets); // to see what it looks like
+console.log($tweet); // to see what it looks like
  // to add it to the page so we can make sure it's got all the right elements, classes, etc.
 
