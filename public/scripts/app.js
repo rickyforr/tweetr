@@ -5,21 +5,6 @@
  */
 
 // Test / driver code (temporary). Eventually will get this from the server.
-var tweetData = {
-  "user": {
-    "name": "Newton",
-    "avatars": {
-      "small":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
-      "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
-      "large":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
-    },
-    "handle": "@SirIsaac"
-  },
-  "content": {
-    "text": "If I have seen further it is by standing on the shoulders of giants"
-  },
-  "created_at": 1461116232227
-}
 
 
 
@@ -49,18 +34,78 @@ var $newTweets =  $(`<article class='tweet-history'>
                           <i class="material-icons">favorite</i>
                       </footer>
                     </article>`)
-return $newTweets;
+  return $newTweets;
 }
 
-var $tweet = createTweetElement(tweetData);
- $(function() {
+function renderTweets(tweetsData) {
+  $.each(tweetsData, function(index, value) {
+    var $tweet =  createTweetElement(value)
+    $(function() {
+      $('.tweet-holder').prepend($tweet)
+    });
+  });
+}
 
- $('.tweet-holder ').prepend($tweet)
+  // loops through tweets
+    // calls createTweetElement for each tweet
+    // takes return value and appends it to the tweets container
+
+
+var tweetArchive;
+
+$(function() {
+   $('.new-tweet').hide()
+  $('button').on('click', function (event) {
+    $('.new-tweet').toggle(1000)
+    $('textarea').select()
+    });
+
+  $('#submit-tweet').on('click', function (event) {
+    event.preventDefault();
+    if ($('textarea').val() === '') {
+      alert('Please Enter Some Text');
+    }
+    else if ($('textarea').val().length > 140) {
+      alert('Tweet too long!')
+    }
+
+    else {
+       $.ajax({
+
+          method: 'POST',
+          url: '/tweets',
+          data: $('form').serialize(),
+
+        });
+
+       $.ajax({
+
+          method: 'GET',
+          url: '/tweets',
+
+
+        }).done(function(data) {
+         tweetArchive = data;
+         renderTweets(tweetArchive);
+
+        });
+}
+  });
+
+
+
 
 });
 
 
-// Test / driver code (temporary)
-console.log($tweet); // to see what it looks like
- // to add it to the page so we can make sure it's got all the right elements, classes, etc.
+
+function loadTweets () {
+
+
+
+      }loadTweets()
+
+
+
+
 
