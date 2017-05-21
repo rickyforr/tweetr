@@ -56,7 +56,7 @@ var tweetArchive;
 $(function() {
    $('.new-tweet').hide()
   $('button').on('click', function (event) {
-    $('.new-tweet').toggle(1000)
+    $('.new-tweet').slideToggle(1000)
     $('textarea').select()
     });
 
