@@ -88,12 +88,10 @@ $(function() {
          tweetArchive = data;
          renderTweets(tweetArchive);
 
-        });
-}
+         });
+    }
+
   });
-
-
-
 
 });
 
