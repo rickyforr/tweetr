@@ -1,3 +1,19 @@
+i.material-icons {
+  float: right;
+  padding: 5px;
+  height: 5px;
+  opacity: 0;
+}
+
+article.tweet-history:hover i.material-icons{
+  float: right;
+  padding: 5px;
+  height: 5px;
+  opacity: 1;
+}
+
+
+
 article.tweet-history {
   border: solid;
   border-width: 1px;
@@ -73,8 +89,4 @@ p.tweet-footer {
   font-size:12px;
 }
 
-i.material-icons {
-  float: right;
-  padding: 5px;
-  height: 5px;
-}
+

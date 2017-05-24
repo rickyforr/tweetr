@@ -43,12 +43,16 @@ function renderTweets(tweetsData) {
 let tweetArchive;
 
 $(function() {
+  //use compose button to toggle new tweet box to appear with text area highlighted
    $('.new-tweet').hide()
   $('button').on('click', function (event) {
     $('.new-tweet').slideToggle(1000)
     $('textarea').select()
     });
 
+
+
+ //actions on form submission. if text is too long/no text show pop up.
   $('#submit-tweet').on('click', function (event) {
     event.preventDefault();
     if ($('textarea').val() === '') {
