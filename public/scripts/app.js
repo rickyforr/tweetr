@@ -87,7 +87,8 @@ $(function() {
         }).done(function(data) {
          tweetArchive = data;
          renderTweets(tweetArchive);
-
+         $('.counter').text('140')
+         $('textarea').val('');
          });
     }
 
