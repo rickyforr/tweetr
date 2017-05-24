@@ -1,16 +1,6 @@
-/*
- * Client-side JS logic goes here
- * jQuery is already loaded
- * Reminder: Use (and do all your DOM work in) jQuery's document ready function
- */
+//Client-side JS logic goes here
 
-// Test / driver code (temporary). Eventually will get this from the server.
-
-
-
-
-
-
+//Function that uses jquery to create an html tweet element. it takes an object with tweet data as an argument
 function createTweetElement(object) {
 
 let name = object.user.name
@@ -37,6 +27,7 @@ var $newTweets =  $(`<article class='tweet-history'>
   return $newTweets;
 }
 
+// function that loops through tweets calls createTweetElement for each tweet takes return value and appends it to the tweets container
 function renderTweets(tweetsData) {
   $.each(tweetsData, function(index, value) {
     var $tweet =  createTweetElement(value)
@@ -46,12 +37,10 @@ function renderTweets(tweetsData) {
   });
 }
 
-  // loops through tweets
-    // calls createTweetElement for each tweet
-    // takes return value and appends it to the tweets container
 
 
-var tweetArchive;
+
+let tweetArchive;
 
 $(function() {
    $('.new-tweet').hide()
@@ -85,6 +74,7 @@ $(function() {
 
 
         }).done(function(data) {
+          //after tweet is posted show tweet history clear text area and reset counter to 140
          tweetArchive = data;
          renderTweets(tweetArchive);
          $('.counter').text('140')
@@ -97,12 +87,6 @@ $(function() {
 });
 
 
-
-function loadTweets () {
-
-
-
-      }loadTweets()
 
 
 
