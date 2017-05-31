@@ -1,4 +1,3 @@
-//Client-side JS logic goes here
 
 //Function that uses jquery to create an html tweet element. it takes an object with tweet data as an argument
 function createTweetElement(object) {
