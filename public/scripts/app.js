@@ -27,7 +27,7 @@ var $newTweets =  $(`<article class='tweet-history'>
   return $newTweets;
 }
 
-// function that loops through tweets calls createTweetElement for each tweet takes return value and appends it to the tweets container
+//function that loops through tweets calls createTweetElement for each tweet takes return value and appends it to the tweets container
 function renderTweets(tweetsData) {
   $.each(tweetsData, function(index, value) {
     var $tweet =  createTweetElement(value)
@@ -43,47 +43,60 @@ function renderTweets(tweetsData) {
 let tweetArchive;
 
 $(function() {
-  //use compose button to toggle new tweet box to appear with text area highlighted
-   $('.new-tweet').hide()
-  $('button').on('click', function (event) {
-    $('.new-tweet').slideToggle(1000)
-    $('textarea').select()
+  // use compose button to toggle new tweet box to appear with text area highlighted
+    $('.new-tweet').hide()
+
+    $('button').on('click', function (event) {
+      $('.new-tweet').slideToggle(1000)
+      $('textarea').select()
     });
 
+  //display tweets from archive
+ $.ajax({
+
+          method: 'GET',
+          url: '/tweets',
+
+        }).done(function(data) {
+         tweetArchive = data;
+         renderTweets(tweetArchive);
+         $('.counter').text('140')
+         $('textarea').val('');
+         });
 
 
  //actions on form submission. if text is too long/no text show pop up.
-  $('#submit-tweet').on('click', function (event) {
+   $('#submit-tweet').on('click', function (event) {
     event.preventDefault();
+
     if ($('textarea').val() === '') {
       alert('Please Enter Some Text');
-    }
-    else if ($('textarea').val().length > 140) {
-      alert('Tweet too long!')
-    }
 
-    else {
+    } else if ($('textarea').val().length > 140) {
+      alert('Tweet too long!')
+
+    } else {
+   //post request adds tweets to archive. get request retrieves updated database and displays new tweet.
        $.ajax({
 
           method: 'POST',
           url: '/tweets',
           data: $('form').serialize(),
 
-        });
-
-       $.ajax({
+        })
+        $.ajax({
 
           method: 'GET',
           url: '/tweets',
 
-
         }).done(function(data) {
-          //after tweet is posted show tweet history clear text area and reset counter to 140
          tweetArchive = data;
          renderTweets(tweetArchive);
          $('.counter').text('140')
          $('textarea').val('');
          });
+
+
     }
 
   });
