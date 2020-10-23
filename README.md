@@ -10,7 +10,6 @@ This repository is the starter code for the project: Students will fork and clon
 2. Install dependencies using the `npm install` command.
 3. Start the web server using the `npm run local` command. The app will be served at <http://localhost:8080/>.
 4. Go to <http://localhost:8080/> in your browser.
-MongoDB server instance runs on the port 27017
 
 ## Dependencies
 
