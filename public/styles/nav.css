@@ -16,36 +16,29 @@
 }
 
 #nav-bar .header {
-  float:left;
+  float: left;
   font-size: 2em;
   padding-top: 18px;
 }
 
 #nav-bar .compose {
-  float:right;
+  float: right;
   margin: 20px 5px 10px 5px;
   background: white;
-  opacity:0.7;
+  opacity: 0.7;
   border: solid;
   padding: 20px 40px 20px 20px;
   border-radius: 10px;
   font-size: 20px;
-
 }
+
 #nav-bar .compose:hover {
-  float:right;
+  float: right;
   margin: 20px 5px 10px 5px;
   background: grey;
-  opacity:0.7;
+  opacity: 0.7;
   border: solid;
   padding: 20px 40px 20px 20px;
   border-radius: 10px;
   font-size: 20px;
-
 }
-i {
-
-
-}
-
-

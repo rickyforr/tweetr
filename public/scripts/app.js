@@ -1,15 +1,12 @@
-
 //Function that uses jquery to create an html tweet element. it takes an object with tweet data as an argument
 function createTweetElement(object) {
+  let name = object.user.name;
+  let avatar = object.user.avatars.small;
+  let handle = object.user.handle;
+  let tweetContent = object.content.text;
+  let days = (Date.now() - object.created_at) / 1000 / 86000;
 
-let name = object.user.name
-let avatar = object.user.avatars.small
-let handle = object.user.handle
-let tweetContent = object.content.text
-let converted = object.created_at / 1000
-let days = ((Date.now() - object.created_at) / 1000) / 86000;
-
-var $newTweets =  $(`<article class='tweet-history'>
+  var $newTweets = $(`<article class='tweet-history'>
                        <header class="tweet-history">
                          <image class="tweet-history" src=${avatar}>
                          <h3 class="tweeter-name">${name}</h3>
@@ -22,89 +19,64 @@ var $newTweets =  $(`<article class='tweet-history'>
                           <i class="material-icons">repeat</i>
                           <i class="material-icons">favorite</i>
                       </footer>
-                    </article>`)
+                    </article>`);
   return $newTweets;
 }
 
 //function that loops through tweets calls createTweetElement for each tweet takes return value and appends it to the tweets container
 function renderTweets(tweetsData) {
-  $.each(tweetsData, function(index, value) {
-    var $tweet =  createTweetElement(value)
-    $(function() {
-      $('.tweet-holder').prepend($tweet)
+  $.each(tweetsData, function (index, value) {
+    var $tweet = createTweetElement(value);
+    $(function () {
+      $(".tweet-holder").prepend($tweet);
     });
   });
 }
 
-
-
-
 let tweetArchive;
 
-$(function() {
+$(function () {
   // use compose button to toggle new tweet box to appear with text area highlighted
-    $('.new-tweet').hide()
-
-    $('button').on('click', function (event) {
-      $('.new-tweet').slideToggle(1000)
-      $('textarea').select()
-    });
-
-  //display tweets from archive
- $.ajax({
-
-          method: 'GET',
-          url: '/tweets',
-
-        }).done(function(data) {
-         tweetArchive = data;
-         renderTweets(tweetArchive);
-         $('.counter').text('140')
-         $('textarea').val('');
-         });
-
-
- //actions on form submission. if text is too long/no text show pop up.
-   $('#submit-tweet').on('click', function (event) {
-    event.preventDefault();
-
-    if ($('textarea').val() === '') {
-      alert('Please Enter Some Text');
-
-    } else if ($('textarea').val().length > 140) {
-      alert('Tweet too long!')
-
-    } else {
-   //post request adds tweets to archive. get request retrieves updated database and displays new tweet.
-       $.ajax({
-
-          method: 'POST',
-          url: '/tweets',
-          data: $('form').serialize(),
-
-        })
-        $.ajax({
-
-          method: 'GET',
-          url: '/tweets',
-
-        }).done(function(data) {
-         tweetArchive = data;
-         renderTweets(tweetArchive);
-         $('.counter').text('140')
-         $('textarea').val('');
-         });
-
-
-    }
-
+  $(".new-tweet").hide();
+  $("button").on("click", function () {
+    $(".new-tweet").slideToggle(1000);
+    $("textarea").select();
   });
 
+  //display tweets from archive
+  $.ajax({
+    method: "GET",
+    url: "/tweets",
+  }).done(function (data) {
+    tweetArchive = data;
+    renderTweets(tweetArchive);
+    $(".counter").text("140");
+    $("textarea").val("");
+  });
+
+  //actions on form submission. if text is too long/no text show pop up.
+  $("#submit-tweet").on("click", function (event) {
+    event.preventDefault();
+
+    if ($("textarea").val() === "") {
+      alert("Please Enter Some Text");
+    } else if ($("textarea").val().length > 140) {
+      alert("Tweet too long!");
+    } else {
+      $.ajax({
+        method: "POST",
+        url: "/tweets",
+        data: $("form").serialize(),
+      });
+      $.ajax({
+        method: "GET",
+        url: "/tweets",
+      }).done(function (data) {
+        tweetArchive = data;
+        renderTweets(tweetArchive);
+        $(".counter").text("140");
+        $("textarea").val("");
+      });
+    }
+  });
 });
-
-
-
-
-
-
-
